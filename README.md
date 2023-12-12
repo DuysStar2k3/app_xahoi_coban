@@ -1,4 +1,4 @@
-# project_ui_hocphan1
+# flutter_firebase
 
 A new Flutter project.
 

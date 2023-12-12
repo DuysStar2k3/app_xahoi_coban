@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/global/common/toast.dart';
 
 class AppBarContainer extends StatelessWidget {
   const AppBarContainer({Key? key}) : super(key: key);
@@ -64,6 +66,47 @@ class AppBarContainer extends StatelessWidget {
                         builder: (BuildContext context) {
                           return Container(
                             height: MediaQuery.of(context).size.height,
+                            child: Scaffold(
+                                body: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Center(
+                                        child: Text(
+                                      "Welcome Home buddy!",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 19),
+                                    )),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        FirebaseAuth.instance.signOut();
+                                        Navigator.pushNamed(context, "/login");
+                                        showToast(
+                                            message: "Successfully signed out");
+                                      },
+                                      child: Container(
+                                        height: 45,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Center(
+                                          child: Text(
+                                            "Sign out",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
                           );
                         },
                       );

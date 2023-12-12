@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_ui_hocphan1/model/name_itemcategory.dart';
+import 'package:flutter_firebase/model/name_itemcategory.dart';
+
 
 class CategoryBar extends StatefulWidget {
   CategoryBar({Key? key, required this.size}) : super(key: key);

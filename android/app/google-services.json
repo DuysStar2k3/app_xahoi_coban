@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1050437419432",
+    "project_id": "dev-manga-2003",
+    "storage_bucket": "dev-manga-2003.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050437419432:android:207eabef9ca19fc1391d9d",
+        "android_client_info": {
+          "package_name": "com.example.dev_mang_blog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAots6Hz1PSGc0NTWagiE6hIweAM7Kg2sE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050437419432:android:20f4e2c585ce905c391d9d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAots6Hz1PSGc0NTWagiE6hIweAM7Kg2sE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
