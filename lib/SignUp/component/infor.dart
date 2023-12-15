@@ -13,6 +13,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../login_in/widget/input_field.dart';
 
 class InFor extends StatefulWidget {
+  const InFor({super.key});
+
   @override
   State<InFor> createState() => _InForState();
 }
@@ -113,7 +115,6 @@ class _InForState extends State<InFor> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(50),
       child: SingleChildScrollView(

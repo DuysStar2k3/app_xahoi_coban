@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dev_upload_image/Home/widget/grid_view.dart';
+import 'package:dev_upload_image/Home/widget/list_view.dart';
 import 'package:dev_upload_image/login_in/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -23,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? myImage;
   String? myname;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   void _showImageDiaLog() {
     showDialog(
       context: context,
@@ -153,118 +156,6 @@ class _HomeScreenState extends State<HomeScreen> {
     read_userInfor();
   }
 
-  Widget listViewWideget(String docId, String img, String userImage,
-      String name, DateTime date, String userId, int downloads) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Card(
-        
-        elevation: 16,
-        shadowColor: Colors.white,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: NetworkImage(userImage),
-                  ),
-                  
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            name,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 5),
-                            child: const Text(
-                              " đã thêm ảnh mới.",
-                              style: TextStyle(
-                                color: Colors.black45,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Text(calculateTimeAgo(date),
-                          style: const TextStyle(
-                              color: Colors.black45,
-                              fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 250,
-              width: double.infinity,
-              child: GestureDetector(
-                onTap: () {
-                  //
-                },
-                child: Image.network(
-                  img,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-          ],
-        ),
-      ),
-    );
-  }
-
-  //date time
-  String calculateTimeAgo(DateTime date) {
-    Duration difference = DateTime.now().difference(date);
-    if (difference.inMinutes < 1) {
-      return 'Vừa xong';
-    } else if (difference.inHours < 1) {
-      return '${difference.inMinutes} phút trước';
-    } else if (difference.inDays < 1) {
-      return '${difference.inHours} giờ trước';
-    } else {
-      return DateFormat("dd-MM-yyyy - HH:mm").format(date);
-    }
-  }
-
-  Widget gridViewWideget(String docId, String img, String userImg, String name,
-      DateTime date, String userId, int downloads) {
-    return GridView.count(
-      crossAxisCount: 1, // Số lượng cột là 1 để có một cột
-      crossAxisSpacing: 1,
-      mainAxisSpacing: 1, // Thêm khoảng cách theo chiều dọc
-      padding: const EdgeInsets.all(6),
-      children: [
-        Container(
-          child: GestureDetector(
-            onTap: () {},
-            child: Center(
-              child: Image.network(
-                img,
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -340,6 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (BuildContext context, int index) {
                       return listViewWideget(
+                        context,
                         snapshot.data!.docs[index].id,
                         snapshot.data!.docs[index]['image'],
                         snapshot.data!.docs[index]['userImage'],
@@ -358,6 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisCount: 3),
                     itemBuilder: (BuildContext context, int index) {
                       return gridViewWideget(
+                        context,
                         snapshot.data!.docs[index].id,
                         snapshot.data!.docs[index]['image'],
                         snapshot.data!.docs[index]['userImage'],
