@@ -1,6 +1,10 @@
-
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dev_upload_image/Home/Home_Screen.dart';
+import 'package:dev_upload_image/login_in/widget/button_login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_downloader/image_downloader.dart';
 import 'package:intl/intl.dart';
 
 class DetailsPhoto extends StatefulWidget {
@@ -34,34 +38,18 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
         children: [
           Column(
             children: [
-              Stack(
-                children: [
-                  Hero(
-                    tag: widget.docId ?? 'defaultTag', // Tag phải trùng với tag ở widget trước
-                    child: Container(
-                      // ... (Nội dung chi tiết ảnh)
-                      child: Image.network(
-                        widget.image!,
-                        height: 300, // Set the height of the image as needed
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+              Hero(
+                tag: widget.docId ??
+                    'defaultTag', // Tag phải trùng với tag ở widget trước
+                child: Container(
+                  // ... (Nội dung chi tiết ảnh)
+                  child: Image.network(
+                    widget.image!,
+                    height: 300, // Set the height of the image as needed
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-
-                  Positioned(
-                    top: 16,
-                    left: 6,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-
-                  // Additional overlay button
-                ],
+                ),
               ),
               SizedBox(height: 20),
               Container(
@@ -88,9 +76,7 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                     .toString(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -106,9 +92,86 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: ButtonLogin(
+                  text: "Download",
+                  color1: Colors.green,
+                  color2: Colors.greenAccent,
+                  press: () async {
+                    try {
+                      var imageId =
+                          await ImageDownloader.downloadImage(widget.image!);
+
+                      if (imageId != null) {
+                        Fluttertoast.showToast(msg: "Tải ảnh thành công");
+                        int newDownloads = widget.downloads! + 1;
+
+                        await FirebaseFirestore.instance
+                            .collection("wallpaper")
+                            .doc(widget.docId)
+                            .update({"downloads": newDownloads});
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      } else {
+                        Fluttertoast.showToast(msg: "Tải ảnh không thành công");
+                      }
+                    } catch (error) {
+                      print("Lỗi khi tải ảnh: $error");
+                      Fluttertoast.showToast(msg: "Đã xảy ra lỗi khi tải ảnh");
+                    }
+                  },
+                ),
+              ),
+              FirebaseAuth.instance.currentUser!.uid == widget.userId
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: ButtonLogin(
+                        text: "Delete",
+                        color1: Colors.green,
+                        color2: Colors.greenAccent,
+                        press: () async {
+                          try {
+                            // Hiển thị cảnh báo hoặc xác nhận xóa ở đây nếu cần
+
+                            // Thực hiện xóa
+                            await FirebaseFirestore.instance
+                                .collection("wallpaper")
+                                .doc(widget.docId)
+                                .delete();
+
+                            // Đóng cửa số xem chi tiết
+                            Navigator.pop(context);
+                          } catch (error) {
+                            // Xử lý lỗi khi xóa
+                            print("Error deleting document: $error");
+                            // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác
+                          }
+                        },
+                      ),
+                    )
+                  : Container(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: ButtonLogin(
+                  text: "Go Back",
+                  color1: Colors.green,
+                  color2: Colors.greenAccent,
+                  press: () async {
+                    Navigator.pop(context);
+                  },
+                ),
               )
             ],
-            
           ),
 
           // Additional content in the ListView can be added here
