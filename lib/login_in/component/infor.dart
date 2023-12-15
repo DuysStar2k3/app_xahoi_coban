@@ -4,6 +4,7 @@ import 'package:dev_upload_image/account_check/account_check.dart';
 import 'package:dev_upload_image/forget_pasword/forget_password.dart';
 import 'package:dev_upload_image/Login_In/widget/button_login.dart';
 import 'package:dev_upload_image/Login_In/widget/input_field.dart';
+import 'package:dev_upload_image/login_in/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -32,7 +33,7 @@ class InFor extends StatelessWidget {
               radius: 90,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           InputField(
@@ -41,7 +42,7 @@ class InFor extends StatelessWidget {
             obscureText: false,
             textEditingController: _emailTextController,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           InputField(
@@ -61,7 +62,7 @@ class InFor extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => ForGetPassWordScreen()));
                 },
-                child: Text(
+                child: const Text(
                   "Quên Mật khẩu?",
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
@@ -78,16 +79,23 @@ class InFor extends StatelessWidget {
                   email: _emailTextController.text.trim().toLowerCase(),
                   password: _passWordTextController.text.trim().toLowerCase(),
                 );
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
               } catch (e) {
                 Fluttertoast.showToast(msg: "Người dùng không tồn tại");
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               }
             },
           ),
-          AccountCheck(login: true, press: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
-          })
+          AccountCheck(
+              login: true,
+              press: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => SignUpScreen()));
+              })
         ],
       ),
     );

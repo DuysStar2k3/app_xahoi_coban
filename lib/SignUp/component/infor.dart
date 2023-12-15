@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dev_upload_image/SignUp/sign_up.dart';
 import 'package:dev_upload_image/account_check/account_check.dart';
 import 'package:dev_upload_image/login_in/login_screen.dart';
 import 'package:dev_upload_image/login_in/widget/button_login.dart';
@@ -42,7 +43,7 @@ class _InForState extends State<InFor> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Plaese choose an option"),
+          title: const Text("Plaese choose an option"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -50,7 +51,7 @@ class _InForState extends State<InFor> {
                 onTap: () =>
                     //get fromcamera
                     _getFromCamera(),
-                child: Row(children: [
+                child: const Row(children: [
                   Padding(
                     padding: EdgeInsets.all(4),
                     child: Icon(
@@ -66,7 +67,7 @@ class _InForState extends State<InFor> {
               ),
               InkWell(
                 onTap: () => _getFromGallery(),
-                child: Row(
+                child: const Row(
                   children: [
                     Padding(
                       padding: EdgeInsets.all(4),
@@ -126,7 +127,7 @@ class _InForState extends State<InFor> {
               },
               child: CircleAvatar(
                 backgroundImage: imageFile == null
-                    ? AssetImage("images/avatar.png")
+                    ? const AssetImage("images/avatar.png")
                     : Image.file(imageFile!).image,
                 radius: 50, // Đặt bán kính của CircleAvatar tại đây
               ),
@@ -168,8 +169,8 @@ class _InForState extends State<InFor> {
                 try {
                   final ref = FirebaseStorage.instance
                       .ref()
-                      .child("UserImage")
-                      .child(DateTime.now().toString() + 'jpg');
+                      .child("userImage")
+                      .child('${DateTime.now()}jpg');
                   await ref.putFile(imageFile!);
                   imageUrl = await ref.getDownloadURL();
 
@@ -179,10 +180,10 @@ class _InForState extends State<InFor> {
                   );
 
                   final User? user = _auth.currentUser;
-                  final _uid = user!.uid;
+                  final uid = user!.uid;
 
-                  FirebaseFirestore.instance.collection("user").doc(_uid).set({
-                    "id": _uid,
+                  FirebaseFirestore.instance.collection("user").doc(uid).set({
+                    "id": uid,
                     "userImage": imageUrl,
                     "name": _fullNameController.text,
                     "email": _emailTextController.text,
@@ -191,16 +192,25 @@ class _InForState extends State<InFor> {
                   });
 
                   Fluttertoast.showToast(msg: "Đăng ký thành công!");
-                  Navigator.canPop(context) ? Navigator.pop(context) : null;
+                  // Clear all input fields
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()));
                 } catch (e) {
                   Fluttertoast.showToast(msg: "Người dùng đã tồn tại");
+                  // Clear all input fields
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()));
                 }
               },
             ),
-            SizedBox(height: 10),
-            AccountCheck(login: false, press: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
-            },)
+            const SizedBox(height: 10),
+            AccountCheck(
+              login: false,
+              press: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              },
+            )
           ],
         ),
       ),
