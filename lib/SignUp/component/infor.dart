@@ -193,7 +193,7 @@ class _InForState extends State<InFor> {
                   Fluttertoast.showToast(msg: "Đăng ký thành công!");
                   Navigator.canPop(context) ? Navigator.pop(context) : null;
                 } catch (e) {
-                  Fluttertoast.showToast(msg: "Đã xảy ra lỗi: $e");
+                  Fluttertoast.showToast(msg: "Người dùng đã tồn tại");
                 }
               },
             ),

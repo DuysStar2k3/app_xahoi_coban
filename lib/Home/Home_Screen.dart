@@ -81,24 +81,26 @@ class _HomeScreenState extends State<HomeScreen> {
   void _getFromCamera() async {
     XFile? pickedFile =
         await ImagePicker().pickImage(source: ImageSource.camera);
-    _cropImage(pickedFile!.path);
-    Navigator.pop(context); // Remove context parameter
+    _cropImage(context, pickedFile?.path);
+    Navigator.pop(context);
   }
 
   void _getFromGallery() async {
     XFile? pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    _cropImage(pickedFile!.path);
-    Navigator.pop(context); // Remove context parameter
+    _cropImage(context, pickedFile?.path);
+    Navigator.pop(context);
   }
 
-  void _cropImage(filePath) async {
-    CroppedFile? croppedFile = await ImageCropper()
-        .cropImage(sourcePath: filePath, maxHeight: 1080, maxWidth: 1080);
-    if (croppedFile != null) {
-      setState(() {
-        imageFile = File(croppedFile.path);
-      });
+  void _cropImage(BuildContext context, String? filePath) async {
+    if (filePath != null) {
+      CroppedFile? croppedFile = await ImageCropper()
+          .cropImage(sourcePath: filePath, maxHeight: 1080, maxWidth: 1080);
+      if (croppedFile != null) {
+        setState(() {
+          imageFile = File(croppedFile.path);
+        });
+      }
     }
   }
 

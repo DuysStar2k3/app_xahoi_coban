@@ -81,7 +81,7 @@ class InFor extends StatelessWidget {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               } catch (e) {
-                Fluttertoast.showToast(msg: e.toString());
+                Fluttertoast.showToast(msg: "Người dùng không tồn tại");
               }
             },
           ),

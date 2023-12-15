@@ -108,6 +108,7 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                 ],
               )
             ],
+            
           ),
 
           // Additional content in the ListView can be added here
