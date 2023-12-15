@@ -168,7 +168,7 @@ class _InForState extends State<InFor> {
                   final ref = FirebaseStorage.instance
                       .ref()
                       .child("UserImage")
-                      .child(DateTime.now().toString() + "jpg");
+                      .child(DateTime.now().toString() + 'jpg');
                   await ref.putFile(imageFile!);
                   imageUrl = await ref.getDownloadURL();
 
