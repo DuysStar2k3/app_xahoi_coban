@@ -17,6 +17,7 @@ class DetailsPhoto extends StatefulWidget {
   DateTime? date;
 
   DetailsPhoto({
+    super.key,
     required this.image,
     required this.userImage,
     required this.name,
@@ -51,7 +52,7 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Container(
                 width: 100,
                 height: 100,
@@ -62,10 +63,10 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
-                "Uploads By: " + widget.name!,
-                style: TextStyle(
+                "Uploads By: ${widget.name!}",
+                style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
@@ -74,30 +75,30 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                 DateFormat("dd/MM/yyyy - hh:mm a ")
                     .format(widget.date!)
                     .toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.download,
                     size: 28,
                   ),
                   Text(
-                    " " + widget.downloads!.toString(),
-                    style: TextStyle(
+                    " ${widget.downloads!}",
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: ButtonLogin(
                   text: "Download",
                   color1: Colors.green,
@@ -119,7 +120,7 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
+                            builder: (context) => const HomeScreen(),
                           ),
                         );
                       } else {

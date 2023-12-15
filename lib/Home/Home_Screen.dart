@@ -1,8 +1,10 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dev_upload_image/Home/widget/grid_view.dart';
 import 'package:dev_upload_image/Home/widget/list_view.dart';
 import 'package:dev_upload_image/login_in/login_screen.dart';
+import 'package:dev_upload_image/profile_peson/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -191,30 +193,34 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         appBar: AppBar(
           title: GestureDetector(
-            //trang thái xuất hiện view
             onTap: () {
               setState(() {
                 changTitle = "Grid View";
                 checkView = true;
+                // Thực hiện cập nhật dữ liệu mô hình cho chế độ xem Grid
+                // Cập nhật danh sách hoặc grid view tại đây
               });
             },
             onDoubleTap: () {
               setState(() {
                 changTitle = "List View";
                 checkView = false;
+                // Thực hiện cập nhật dữ liệu mô hình cho chế độ xem List
+                // Cập nhật danh sách hoặc grid view tại đây
               });
             },
             child: Text(changTitle),
           ),
-          centerTitle: true,
-          leading: GestureDetector(
-            onTap: () {
-              FirebaseAuth.instance.signOut();
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
-            },
-            child: const Icon(Icons.exit_to_app),
-          ),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ProfilePerson()),
+              ),
+              icon: const Icon(Icons.person),
+            ),
+          ],
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
