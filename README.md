@@ -1,16 +1,46 @@
-# dev_upload_image
+# Tên Dự Án
+Upload Hình Ảnh
 
-A new Flutter project.
+Chào mừng bạn đến với dự án Upload Hình Ảnh của chúng tôi! Dưới đây là hướng dẫn chi tiết về cách cài đặt và chạy ứng dụng của chúng tôi.
 
-## Getting Started
+## Giới Thiệu
 
-This project is a starting point for a Flutter application.
+Dự án Upload Hình Ảnh giúp bạn dễ dàng tải lên và quản lý hình ảnh của mình.
 
-A few resources to get you started if this is your first Flutter project:
+### Yêu Cầu Hệ Thống
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Trước khi bạn bắt đầu, hãy đảm bảo rằng máy tính của bạn đáp ứng các yêu cầu hệ thống sau:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Hệ điều hành: Windows 10, macOS
+- Node.js (phiên bản 12 trở lên)
+- npm (quản lý gói của Node.js)
+- yêu cầu cài git để hỗ trợ dễ cho việc clone(nếu ko phải tải file zip để chạy)
+### Bước 1: Sao chép dự án từ git
+1. Tạo một thư mục mới và mở Command Prompt tại thư mục đó.
+
+2. Sao chép dự án từ GitHub bằng lệnh sau:
+
+```bash
+    git clone https://github.com/DuysStar2k3/project_hocphan.git
+```
+[- Thể tải file zip về dùng thay vì clone]
+
+### Bước 2: Khởi Chạy
+
+1. Bật máy ảo muốn build(hiện tại ko rõ tại sao chay trên web bị lỗi khuyên dùng điện thoại)
+
+2. Mở cmd của dự án
+
+3. Chạy lệnh:
+
+```bash
+    flutter pub get
+```
+
+4. Khởi động ứng dụng:
+
+```bash
+    flutter run
+```
+
+Cảm ơn bạn đã quan tâm và sử dụng ứng dụng của chúng tôi!
