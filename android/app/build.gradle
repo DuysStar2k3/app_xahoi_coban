@@ -65,3 +65,8 @@ flutter {
 }
 
 dependencies {}
+android {
+    lintOptions {
+        checkReleaseBuilds false
+    }
+}

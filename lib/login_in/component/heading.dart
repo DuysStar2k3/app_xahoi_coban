@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HeadText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Lấy kích thước màn hình
     Size size = MediaQuery.of(context).size;
+
     return Padding(
+      // Khoảng cách giữa phần nội dung và các mép của màn hình
       padding: EdgeInsets.symmetric(
         horizontal: 30,
         vertical: 15,
@@ -13,6 +15,7 @@ class HeadText extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
+            // Kích thước của hộp trống để tạo khoảng cách từ đỉnh màn hình
             height: size.height * 0.05,
           ),
           Center(
@@ -22,11 +25,12 @@ class HeadText extends StatelessWidget {
                 fontSize: 75,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontFamily: "Signatra"
+                fontFamily: "Signatra",
               ),
             ),
           ),
           SizedBox(
+            // Kích thước của hộp trống giữa các dòng văn bản
             height: 20,
           ),
           Center(
@@ -36,7 +40,7 @@ class HeadText extends StatelessWidget {
                 fontSize: 30,
                 color: Colors.white60,
                 fontWeight: FontWeight.bold,
-                fontFamily: "Bebas"
+                fontFamily: "Bebas",
               ),
             ),
           )

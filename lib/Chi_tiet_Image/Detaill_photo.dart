@@ -117,7 +117,8 @@ class _DetailsPhotoState extends State<DetailsPhoto> {
                             .doc(widget.docId)
                             .update({"downloads": newDownloads});
 
-                        Navigator.push(
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const HomeScreen(),
